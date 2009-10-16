@@ -1,0 +1,5 @@
+gbin
+vendor/gems/*
+!vendor/gems/cache
+.DS_Store
+pkg

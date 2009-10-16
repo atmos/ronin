@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'ronin'
+require 'optparse'
+
+options = { :config => File.expand_path("~/.ey-cloud.yml") }
+OptionParser.new do |opts|
+  opts.banner = "Usage: ronin [options]"
+
+  opts.on( '-f', '--config FILE', "Specify the config file" ) do |f|
+    options[:config] = f
+  end
+
+  opts.on( '-e', '--environment NAME', "Specify the environment to login to" ) do |env|
+    options[:environment] = env
+  end
+end.parse!
+
+ronin = EY::Ronin::Connection.new(options[:config])
+if options[:environment]
+  ronin.login_to_environment(options[:environment])
+else
+  ronin.help
+end
+
+# vim:ft=ruby
